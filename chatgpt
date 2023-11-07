@@ -1,0 +1,44 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class ReadFile {
+    public static void main(String[] args) {
+        try {
+            File myFile = new File("index.html");
+            Scanner myReader = new Scanner(myFile);
+
+            StringBuilder fileContent = new StringBuilder();
+
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                fileContent.append(data);
+                fileContent.append(" ");
+            }
+
+            myReader.close();
+
+            String content = fileContent.toString();
+            StringBuilder result = new StringBuilder();
+
+            int index = content.toLowerCase().indexOf("html");
+            int lastIndex = 0;
+
+            while (index >= 0) {
+                result.append(content, lastIndex, index);
+                result.append("HTML");
+
+                lastIndex = index + 3; // Move the index past "html"
+                index = content.toLowerCase().indexOf("html", lastIndex);
+            }
+
+            // Append any remaining content
+            result.append(content, lastIndex, content.length());
+
+            System.out.println(result.toString());
+        } catch (FileNotFoundException e) {
+            System.out.println("Error!");
+            e.printStackTrace();
+        }
+    }
+}
