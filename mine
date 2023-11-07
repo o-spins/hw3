@@ -1,0 +1,27 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class ReadFile {
+    public static void main (String[] args) {
+        try {
+            File myFile = new File("index.html");
+            Scanner myReader = new Scanner(myFile);
+
+            StringBuilder fileContent = new StringBuilder();
+
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                fileContent.append(data);
+                fileContent.append(" ");
+            }
+            System.out.println(fileContent.toString());
+            myReader.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error!");
+            e.printStackTrace();
+        }
+    }
+
+}
